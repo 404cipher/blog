@@ -1,0 +1,18 @@
+<%- include("partials/header.ejs") %>
+<div class="container">
+    <h1>Edit Post</h1>
+    <% if (locals.post) { %>
+    <form action="/save" method="post">
+        <% console.log("post is", post); %>
+        <label for="postTitle">Title</label>
+        <input class="form-control" type="text" name="postTitle" value="<%= post.title %>" />
+        <label for="postTitle">Author</label>
+        <input class="form-control" type="text" name="postAuthor" value="<%= post.author %>" />
+        <label for="postContent">Content</label>
+        <textarea class="form-control" name="postContent"><%= post.content %></textarea> 
+        <input type="hidden" name="postId" value="<%= post.id %>" />
+        <button class="btn btn-primary mt-5">Save Changes</button>
+    </form>
+    <% } %>
+</div>
+<%- include("partials/footer.ejs") %>

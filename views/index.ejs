@@ -1,0 +1,46 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container">
+    <h1 class="mb-3">Blog Demo By Ash Moore</h1>
+
+    <% if (locals.posts.length < 1) { %>
+        <p>No blog posts found.</p>
+    <% } else { %>
+        <% posts.forEach((post, index) => { %>
+            <div class="py-5">
+                <h2><%= post.title %></h2>
+                <p>Created on <%= post.createdAt %> by <%= post.author %></p>
+                <%- post.content %>
+
+                <div class="d-block mt-3">
+                    <form class="d-inline" action="/edit" method="post">
+                        <input type="hidden" name="postId" value="<%= post.id %>" />
+                        <button class="btn btn-primary">Edit</button>
+                    </form>
+                    
+                    <form class="d-inline" action="/delete" method="post">
+                        <input type="hidden" name="postId" value="<%= post.id %>" />
+                        <button class="btn btn-secondary">Delete</button>
+                    </form>
+                </div>
+            </div>
+            <hr />
+        <% }) %>
+    <% } %>
+
+    <% if (locals.deleted) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p class="lead">Post removed</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+
+    <% if (locals.updated) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p class="lead">Post updated</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+</div>
+
+<%- include("partials/footer.ejs") %>
